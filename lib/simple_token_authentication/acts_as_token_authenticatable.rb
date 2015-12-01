@@ -33,7 +33,9 @@ module SimpleTokenAuthentication
 
     def token_suitable?(token)
       #self.class.where(authentication_token: token).count == 0
-      self.class.find_by_authentication_token(token)
+      if !self.class.find_by_authentication_token(token)
+        return true
+      end
     end
 
     # Private: Get one (always the same) object which behaves as a token generator
